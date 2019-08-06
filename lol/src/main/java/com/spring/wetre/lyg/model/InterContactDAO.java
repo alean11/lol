@@ -23,7 +23,9 @@ public interface InterContactDAO {
 
 	int telcheck(HashMap<String, String> paramap);
 
-	CartVO selectCart(String userid);
+	List<CartVO> selectCartList(String userid);
+
+	CartVO selectCartOne(HashMap<String, String> para);
 
 	
 	

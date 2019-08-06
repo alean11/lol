@@ -63,20 +63,20 @@ public class contactController {
 		}
 		System.out.println(storemapList.size());
 		mv.addObject("storemapList", storemapList);
-		mv.setViewName("map2");
+		mv.setViewName("wetre/map.tiles1");
 
 		return mv;
 
 	}
-	@RequestMapping(value = "/map3.we", method = { RequestMethod.GET })
-	public ModelAndView map3(HttpServletRequest request, ModelAndView mv) {
+	@RequestMapping(value = "/List.we", method = { RequestMethod.GET })
+	public ModelAndView List(HttpServletRequest request, ModelAndView mv) {
 		List<AccVO> storemapList = service.getStoreMap();
 		for (AccVO accVO : storemapList) {
 			System.out.println(accVO.getAcc_addr1());
 		}
 		System.out.println(storemapList.size());
 		mv.addObject("storemapList", storemapList);
-		mv.setViewName("map3");
+		mv.setViewName("wetre/List.tiles1");
 		
 		return mv;
 		
@@ -97,17 +97,29 @@ public class contactController {
 		return mv;
 	}
 
-
-
-
 	@RequestMapping(value = "/myPage.we", method = RequestMethod.GET)
 	public ModelAndView myPage(ModelAndView mv) throws Exception {
 		String userid = "admin";
 		
-		CartVO cvo = service.selectCart(userid);
+		List<CartVO> cvoList = service.selectCartList(userid);
+		mv.addObject("cvoList", cvoList);
+		mv.setViewName("wetre/List.tiles1");
+		return mv;
+	}
+
+
+	@RequestMapping(value = "/myPageDetail.we", method = RequestMethod.GET)
+	public ModelAndView myPageDetail(ModelAndView mv) throws Exception {
+		String userid = "admin";
+		String cartno = "5"; 
+		HashMap<String, String> para = new HashMap<String, String>();
+		para.put("userid", userid);
+		para.put("cartno", cartno);
+		CartVO cvo = service.selectCartOne(para);
 		mv.addObject("cvo", cvo);
 		mv.setViewName("wetre/myPage.tiles1");
 		return mv;
 	}
+	
 		
 }

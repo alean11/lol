@@ -82,10 +82,15 @@ public class contactDAO implements InterContactDAO {
 		
 	}
 
+	@Override
+	public List<CartVO> selectCartList(String userid) {
+		return sqlsession.selectList("lyg.selectCartList", userid);
+	}
+
 
 	@Override
-	public CartVO selectCart(String userid) {
-		return sqlsession.selectOne("lyg.selectCart", userid);
+	public CartVO selectCartOne(HashMap<String, String> para) {
+		return sqlsession.selectOne("lyg.selectCartOne", para);
 	}
 
 	

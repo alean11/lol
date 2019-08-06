@@ -23,14 +23,15 @@ public class CartVO {
 	private String book_start;
 	private String book_end;
 	private String expectedtime;
-	private String acc_grade;
+	private int acc_grade;
+	private String acc_img;
 	
 	private AccVO accvo;
 	public CartVO() {}
 	public CartVO(int cartno, String p_userid, String p_name, int r_idx, int cart_price, int cart_cnt,
 			String fk_acc_name, String fk_rtype_name, String full_acc_addr, String full_acc_tel, String reserver,
 			int adultNum, int kidsNum, String contactinfo, String payMethod, String requesttxt, String book_start,
-			String book_end, String expectedtime, String acc_grade, AccVO accvo) {
+			String book_end, String expectedtime, int acc_grade, String acc_img, AccVO accvo) {
 		super();
 		this.cartno = cartno;
 		this.p_userid = p_userid;
@@ -52,6 +53,7 @@ public class CartVO {
 		this.book_end = book_end;
 		this.expectedtime = expectedtime;
 		this.acc_grade = acc_grade;
+		this.acc_img = acc_img;
 		this.accvo = accvo;
 	}
 	public int getCartno() {
@@ -120,16 +122,16 @@ public class CartVO {
 	public void setReserver(String reserver) {
 		this.reserver = reserver;
 	}
-	public int getadultNum() {
+	public int getAdultNum() {
 		return adultNum;
 	}
-	public void setadultNum(int adultNum) {
+	public void setAdultNum(int adultNum) {
 		this.adultNum = adultNum;
 	}
-	public int getkidsNum() {
+	public int getKidsNum() {
 		return kidsNum;
 	}
-	public void setkidsNum(int kidsNum) {
+	public void setKidsNum(int kidsNum) {
 		this.kidsNum = kidsNum;
 	}
 	public String getContactinfo() {
@@ -138,10 +140,10 @@ public class CartVO {
 	public void setContactinfo(String contactinfo) {
 		this.contactinfo = contactinfo;
 	}
-	public String getpayMethod() {
+	public String getPayMethod() {
 		return payMethod;
 	}
-	public void setpayMethod(String payMethod) {
+	public void setPayMethod(String payMethod) {
 		this.payMethod = payMethod;
 	}
 	public String getRequesttxt() {
@@ -168,11 +170,17 @@ public class CartVO {
 	public void setExpectedtime(String expectedtime) {
 		this.expectedtime = expectedtime;
 	}
-	public String getAcc_grade() {
+	public int getAcc_grade() {
 		return acc_grade;
 	}
-	public void setAcc_grade(String acc_grade) {
+	public void setAcc_grade(int acc_grade) {
 		this.acc_grade = acc_grade;
+	}
+	public String getAcc_img() {
+		return acc_img;
+	}
+	public void setAcc_img(String acc_img) {
+		this.acc_img = acc_img;
 	}
 	public AccVO getAccvo() {
 		return accvo;
@@ -180,7 +188,6 @@ public class CartVO {
 	public void setAccvo(AccVO accvo) {
 		this.accvo = accvo;
 	}
-	
 	
 
 }

@@ -94,10 +94,18 @@
 		<result column="paymethod" property="paymethod"/>
 		<collection property="accvo" resultMap="AccVO"/>
 	</resultMap> -->
-	<select id="selectCart" parameterType="String" resultType="com.spring.wetre.lyg.controller.CartVO">
-		select c.cartno, p_userid, p_name, r_idx, cart_price, cart_cnt, fk_acc_name, fk_rtype_name, full_acc_addr, full_acc_tel, reserver, adultNum, kidsNum, contactinfo, payMethod, requesttxt, to_char(book_start, 'yyyy-mm-dd') as book_start, to_char(book_end, 'yyyy-mm-dd') as book_end, expectedtime, a.acc_grade
+	<select id="selectCartList" parameterType="String" resultType="com.spring.wetre.lyg.controller.CartVO">
+		select c.cartno, p_userid, p_name, r_idx, cart_price, cart_cnt, fk_acc_name, fk_rtype_name, full_acc_addr, full_acc_tel, reserver, adultNum, kidsNum, contactinfo, payMethod, requesttxt, to_char(book_start, 'yyyy-mm-dd') as book_start, to_char(book_end, 'yyyy-mm-dd') as book_end, expectedtime, a.acc_grade, a.acc_img
 		from acc_tbl a left join cart_tbl c
 		on a.acc_name = c.fk_acc_name
 		where p_userid = #{userid}
+	</select>
+	
+	<select id="selectCartOne" parameterType="HashMap" resultType="com.spring.wetre.lyg.controller.CartVO">
+		select c.cartno, p_userid, p_name, r_idx, cart_price, cart_cnt, fk_acc_name, fk_rtype_name, full_acc_addr, full_acc_tel, reserver, adultNum, kidsNum, contactinfo, payMethod, requesttxt, to_char(book_start, 'yyyy-mm-dd') as book_start, to_char(book_end, 'yyyy-mm-dd') as book_end, expectedtime, a.acc_grade
+		from acc_tbl a left join cart_tbl c
+		on a.acc_name = c.fk_acc_name
+		where p_userid = #{userid} and
+		c.cartno = #{cartno}
 	</select>
 </mapper>

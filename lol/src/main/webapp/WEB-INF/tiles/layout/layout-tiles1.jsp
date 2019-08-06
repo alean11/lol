@@ -46,7 +46,7 @@
 	<script src="<%= ctxPath%>/resources/js/jquery.ajaxchimp.min.js"></script>
 	<script src="<%= ctxPath%>/resources/js/mail-script.js"></script>
 	<!--gmaps Js-->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	
 	<script src="<%= ctxPath%>/resources/js/gmaps.min.js"></script>
 	<script src="<%= ctxPath%>/resources/js/theme.js"></script>
 

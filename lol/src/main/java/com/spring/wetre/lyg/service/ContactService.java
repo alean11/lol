@@ -76,9 +76,18 @@ public class ContactService implements InterContactService {
 		return dao.telcheck(paramap);
 	}
 
+	
+
 	@Override
-	public CartVO selectCart(String userid) {
-		return dao.selectCart(userid);
+	public List<CartVO> selectCartList(String userid) {
+		// TODO Auto-generated method stub
+		return dao.selectCartList(userid);
+	}
+
+	@Override
+	public CartVO selectCartOne(HashMap<String, String> para) {
+		// TODO Auto-generated method stub
+		return dao.selectCartOne(para);
 	}
 
 	
