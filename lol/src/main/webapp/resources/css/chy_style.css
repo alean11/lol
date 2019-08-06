@@ -1,0 +1,54 @@
+@import '../css/jquery-ui.min.css';
+
+.widget:last-child {
+    border-bottom: none;
+    border-bottom-width: initial;
+    border-bottom-style: none;
+    border-bottom-color: initial;
+    padding-bottom: 0;
+    margin: 0;
+    padding: 0;
+    display: block;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #212529;
+}
+
+.widget-title {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.mb-30 {
+    margin-bottom: 30px;
+    display: block;
+    margin-block-end: 2.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.widget.price .ui-slider-horizontal {
+    height: 5px;
+}
+
+.widget.price .ui-slider-range.ui-corner-all.ui-widget-header {
+    background-color: #3a3a3a;
+}
+
+.widget.price .ui-slider-handle {
+    background-color: #3a3a3a;
+    border: none;
+    border-radius: 0;
+    top: -6px;
+    width: 15px;
+    height: 15px;
+}
+
+
+.widget.price .range-price {
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 15px;
+    text-transform: uppercase;
+}

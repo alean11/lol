@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ==== #28. mapper 기본설정 ==== -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- ==== #29. 루트 엘리먼트 & 네임스페이스 설정(프로젝트 전체내에서 유일해야 한다.) ==== -->
+<mapper namespace="kmj">
+	
+	<!-- === 개인회원 로그인 처리하기 === -->
+	<select id="getLoginPrivateMember" parameterType="HashMap" resultType="com.spring.wetre.model.PersonalVO">
+		select idx, p_userid, p_name, p_email                                 
+			 , trunc( months_between(sysdate, p_lastlogin) ) AS lastlogindategap 
+			 , trunc( months_between(sysdate, p_lastpwdchg) ) AS pwdchangegap
+		from personal_mbr 
+		where p_status = 1 and p_userid = #{userid} and p_pwd = #{pwd}	
+	</select>
+	<update id="setLastPrivateMemberLoginDate" parameterType="HashMap">
+		update personal_mbr set p_lastlogin = sysdate
+		where p_userid = #{userid}
+	</update>
+	
+	
+	<!-- === 기업회원 로그인 처리하기 === -->
+	<select id="getLoginCompanyMember" parameterType="HashMap" resultType="com.spring.wetre.model.CompanyVO">
+		select idx, cp_id, cp_name, cp_email                                 
+		from company_mbr 
+		where status = 1 and cp_id = #{userid} and cp_pwd = #{pwd}	
+	</select>
+	
+	
+	<!-- 고유번호를 가지고 해당 숙박시설의 정보를 조회해오기 -->
+	<select id="getOneAccInfomation" parameterType="int" resultType="com.spring.wetre.model.AccVO">
+		select acc_name, acc_img, acc_text, acc_addr1
+		from view_hotel_list_search
+		where acc_idx = #{acc_idx}
+	</select>
+	
+	
+	
+</mapper>

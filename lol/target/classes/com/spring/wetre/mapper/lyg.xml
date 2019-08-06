@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ==== #28. mapper 기본설정 ==== -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- ==== #29. 루트 엘리먼트 & 네임스페이스 설정(프로젝트 전체내에서 유일해야 한다.) ==== -->
+<mapper namespace="lyg">
+	<!-- 태그테이블 인서트 -->
+	<update id="hoteltag" parameterType="String">
+		update acc_cnt set cnt = cnt + 1
+		where acc_idx = #{acc_idx}
+	</update>
+
+	<!-- 아이디 존재유무 -->
+	<select id="isUserExists" parameterType="HashMap" resultType="int">
+		select count(*)
+		from personal_mbr
+		where p_status=1 and p_userid = #{userid} and p_email = #{email}
+	</select>
+	
+	<select id="getStoreMap" resultType="com.spring.wetre.model.AccVO">
+		select acc_idx, acc_name, acc_tel1, acc_tel2, acc_tel3, acc_addr1,acc_img
+		from acc_tbl
+		order by acc_idx asc
+	</select>
+	<select id="checkEmail" parameterType="String" resultType="int">
+		select count(*)
+		from personal_mbr
+		where p_email = #{email} and idx = #{idx}
+	</select>
+	
+	<select id="acc">
+		select acc_addr1
+		from acc_tbl
+		where acc_idx = #{acc_idx}
+	</select>
+	
+	<resultMap type="com.spring.wetre.lyg.controller.RoomVO" id="RoomVO">
+		<result column="acc_idx" property="acc_idx"/>
+		<result column="r_text" property="r_text"/>
+		<result column="color" property="color"/>
+	</resultMap>
+
+	<resultMap type="com.spring.wetre.model.AccVO" id="AccVO">
+		<result column="acc_idx" property="acc_idx"/>
+		<result column="acc_name" property="acc_name"/>
+		<result column="acc_img" property="acc_img"/>
+		<result column="acc_text" property="acc_text"/>
+		<collection property="room" resultMap="RoomVO"/>
+	</resultMap>
+
+	<select id="roomdetail" parameterType="String" resultMap="AccVO">
+		select *
+		from acc_tbl join room_tbl 
+		on acc_idx = fk_acc_idx
+		where acc_idx = #{acc_idx}
+	</select>
+	
+	<select id="perTelCheck" parameterType="HashMap" resultType="int">
+		select count(*)
+		from  personal_mbr
+		where idx = #{idx} and p_hp1||p_hp2||p_hp3 = #{tel} 
+	</select>
+	<select id="comTelCheck" parameterType="HashMap" resultType="int">
+		select count(*)
+		from  company_mbr
+		where idx = #{idx} and cp_tel1||cp_tel2||cp_tel3 = #{tel}
+	</select>
+<!-- 	<resultMap type="com.spring.wetre.lyg.controller.CartVO" id="CartVO">
+		<result column="acc_idx" property="acc_idx"/>
+		<result column="r_text" property="r_text"/>
+		<result column="color" property="color"/>
+	</resultMap>
+
+	<resultMap type="com.spring.wetre.lyg.controller.CartVO" id="CartVO">
+		<result column="cartno" property="cartno"/>
+		<result column="p_userid" property="p_userid"/>
+		<result column="p_name" property="p_name"/>
+		<result column="r_idx" property="r_idx"/>
+		<result column="cart_price" property="cart_price"/>
+		<result column="cart_cnt" property="cart_cnt"/>
+		<result column="fk_acc_name" property="fk_acc_name"/>
+		<result column="fk_rtype_name" property="fk_rtype_name"/>
+		<result column="full_acc_addr" property="full_acc_addr"/>
+		<result column="full_acc_tel" property="full_acc_tel"/>
+		<result column="reserver" property="reserver"/>
+		<result column="adultnum" property="adultnum"/>
+		<result column="kidsnum" property="kidsnum"/>
+		<result column="contactinfo" property="contactinfo"/>
+		<result column="paymethod" property="paymethod"/>
+		<result column="requesttxt" property="requesttxt"/>
+		<result column="book_start" property="book_start"/>
+		<result column="paymethod" property="paymethod"/>
+		<result column="paymethod" property="paymethod"/>
+		<collection property="accvo" resultMap="AccVO"/>
+	</resultMap> -->
+	<select id="selectCart" parameterType="String" resultType="com.spring.wetre.lyg.controller.CartVO">
+		select c.cartno, p_userid, p_name, r_idx, cart_price, cart_cnt, fk_acc_name, fk_rtype_name, full_acc_addr, full_acc_tel, reserver, adultNum, kidsNum, contactinfo, payMethod, requesttxt, to_char(book_start, 'yyyy-mm-dd') as book_start, to_char(book_end, 'yyyy-mm-dd') as book_end, expectedtime, a.acc_grade
+		from acc_tbl a left join cart_tbl c
+		on a.acc_name = c.fk_acc_name
+		where p_userid = #{userid}
+	</select>
+</mapper>
