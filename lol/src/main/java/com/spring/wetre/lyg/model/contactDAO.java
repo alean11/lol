@@ -63,7 +63,12 @@ public class contactDAO implements InterContactDAO {
 
 	@Override
 	public int checkEmail(HashMap<String, String> paramap) {
-		return sqlsession.selectOne("lyg.checkEmail", paramap);
+		int n = 0;
+		if("2".equals(paramap.get("type")))
+			n =sqlsession.selectOne("lyg.checkEmailCom", paramap);
+		else
+			n =sqlsession.selectOne("lyg.checkEmailPer", paramap);			
+		return n;
 	}
 
 
@@ -91,6 +96,28 @@ public class contactDAO implements InterContactDAO {
 	@Override
 	public CartVO selectCartOne(HashMap<String, String> para) {
 		return sqlsession.selectOne("lyg.selectCartOne", para);
+	}
+
+
+	@Override
+	public String idFind(HashMap<String, String> map) {
+		String result = "";
+		if("1".equals(map.get("type")))
+			result = sqlsession.selectOne("lyg.idFindPer", map);
+		else if("2".equals(map.get("type")))
+			result = sqlsession.selectOne("lyg.idFindCom", map);
+		return result;
+	}
+
+
+	@Override
+	public int pwdChange(HashMap<String, String> map) {
+		int n = 0;
+		if("1".equals(map.get("type")))
+			n = sqlsession.update("lyg.pwdChangePer", map);
+		else if("2".equals(map.get("type")))
+			n = sqlsession.update("lyg.pwdChangeCom", map);
+		return n;
 	}
 
 	

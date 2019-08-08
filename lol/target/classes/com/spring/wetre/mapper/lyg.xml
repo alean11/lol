@@ -23,11 +23,24 @@
 		from acc_tbl
 		order by acc_idx asc
 	</select>
-	<select id="checkEmail" parameterType="String" resultType="int">
+	<select id="checkEmailPer" parameterType="HashMap" resultType="int">
 		select count(*)
 		from personal_mbr
-		where p_email = #{email} and idx = #{idx}
+		where p_email = #{email} and p_userid = #{p_userid}
 	</select>
+	<select id="checkEmailCom" parameterType="HashMap" resultType="int">
+		select count(*)
+		from company_mbr
+		where cp_email = #{email} and cp_id = #{p_userid}
+	</select>
+	<update id="pwdChangePer" parameterType="HashMap">
+		update personal_mbr set p_pwd = #{pwd}
+		where p_userid = #{userid}
+	</update>
+	<update id="pwdChangeCom" parameterType="HashMap">
+		update company_mbr set cp_pwd = #{pwd}
+		where cp_id = #{userid}
+	</update>
 	
 	<select id="acc">
 		select acc_addr1
@@ -107,5 +120,17 @@
 		on a.acc_name = c.fk_acc_name
 		where p_userid = #{userid} and
 		c.cartno = #{cartno}
+	</select>
+	
+	<select id="idFindPer" parameterType="HashMap" resultType="String">
+		select p_userid
+		from personal_mbr
+		where p_name = #{name} and p_hp1 || p_hp2 || p_hp3 = #{mobile}
+		
+	</select>
+	<select id="idFindCom" parameterType="HashMap" resultType="String">
+		select cp_id
+		from company_mbr
+		where ceoname = #{name} and cp_tel1 || cp_tel2 || cp_tel3 = #{mobile}
 	</select>
 </mapper>

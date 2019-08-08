@@ -63,11 +63,11 @@ public class ContactService implements InterContactService {
 	@Transactional
 	@Override
 	public int checkEmail(HashMap<String, String> paramap) {
-	/*	try {
+	try {
 			 paramap.put("email", aes.encrypt(paramap.get("email")));
 		} catch (UnsupportedEncodingException | GeneralSecurityException e) {
 			e.printStackTrace();
-		}*/
+		}
 		return dao.checkEmail(paramap);
 	}
 
@@ -88,6 +88,16 @@ public class ContactService implements InterContactService {
 	public CartVO selectCartOne(HashMap<String, String> para) {
 		// TODO Auto-generated method stub
 		return dao.selectCartOne(para);
+	}
+
+	@Override
+	public String idFind(HashMap<String, String> map) {
+		return dao.idFind(map);
+	}
+
+	@Override
+	public int pwdChange(HashMap<String, String> map) {
+		return dao.pwdChange(map);
 	}
 
 	

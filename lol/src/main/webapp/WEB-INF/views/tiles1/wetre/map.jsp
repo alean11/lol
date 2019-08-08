@@ -3,12 +3,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <style type="text/css">
+.container{
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
 #map_canvas {
     width: 500px;
     height: 500px;
 }
-.container{
-	
+#bg{
+    width: 500px;
+    height: 500px;
+	background-image: url("resources/img/cta-img.png");
 }
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -24,7 +30,7 @@ $(document).ready(function () {
     var elevator;
     var myOptions = {
         zoom: 15,
-        center: {lat: 37.567957, lng: 126.983134},
+        center: {lat: 37.566535, lng: 126.9779692},
         
         mapTypeId: 'roadmap'
         
@@ -54,10 +60,16 @@ $(document).ready(function () {
          });
         </c:forEach>
 //    }
+// ----------------------------- 검색 시작 ----------------------------------------------
     var geocoder = new google.maps.Geocoder();
     document.getElementById('submit').addEventListener('click', function() {
         geocodeAddress(geocoder, map);
       });
+    $("#address").keyup(function(e){
+    	if(e.keyCode == 13)  
+            geocodeAddress(geocoder, map);
+    	});
+ // ----------------------------- 검색 끝 ----------------------------------------------
 
     
     
@@ -105,6 +117,25 @@ $(document).ready(function () {
     		 	
     	  });  // end of google.maps.event.addListener()-------------------
     	
+    	  google.maps.event.addListener(marcker, 'hover', 
+    	    function(){ 
+    		      // marker에(i번째 마커) click(클릭)했을 때 실행할 내용들...
+         
+               // 확인용
+               // console.log(marker.zIndex);  // 1  2  3
+    	     			
+    			  for(var i=0; i<markerArr.length; i++) { // 생성된 마커의 갯수만큼 반복하여
+    				  if(i != (marcker.zIndex) ) {     // 마커에 클릭하여 발생된 풍선창(풍선윈도우) infowindow 를 제외한 나머지 다른 마커에 달린 풍선창(풍선윈도우) infowindow 는
+    					 infowindowArr[i].close();	    // 닫는다.
+    				  }
+    				  else if(i == (marcker.zIndex)) {           // 마커에 클릭하여 발생된 풍선창(풍선윈도우) infowindow 는
+    					 infowindowArr[i].open(map, marcker);  // targetmap 상에 표시되어 있는 marker 위에 띄운다.
+    					 
+    				  }
+    			  }// end of for-----------------------	 		
+    		 	
+    	  });  // end of google.maps.event.addListener()-------------------
+    	
     }// end of function markerListener(map, marker)-----------
 
     function viewContent(marcker, idx) {
@@ -115,7 +146,8 @@ $(document).ready(function () {
     	return html;	
     }
 
-    
+
+
 }); // ready ------------------------------
 
 function geocodeAddress(geocoder, resultsMap) {
@@ -123,7 +155,6 @@ function geocodeAddress(geocoder, resultsMap) {
     geocoder.geocode({'address': address}, function(results, status) {
       if (status === 'OK') {
         resultsMap.setCenter(results[0].geometry.location);
-        
       } else {
         /* alert('Geocode was not successful for the following reason: ' + status); */
         alert('입력하신 주소는 없는주소 입니다.' + status);
@@ -138,9 +169,12 @@ function goDetail(storeno) {
 
 </script>
 <div class="container" align="center">
+	<h1 class="mb-30 title_color"> 지도로 호텔 찾기</h1>
 	<div id="floating-panel">
-		<input id="address" type="textbox" value="Sydney, NSW">
-		<input id="submit" type="button" value="Geocode">
+		<span style="font-weight: bold;"> 지역명을 입력하세요 : </span>
+		<input id="address" type="text" placeholder="서울특별시"/>
+		<input id="submit" type="button" onkeyup="enterkey();" value="Geocode"/>
 	</div>
-	<div id="map_canvas"></div>
+	<div id="map_canvas" style="display: inline-block;"></div>
+	<div id="bg" style="display: inline-block; opacity: 0.7;"></div>
 </div>

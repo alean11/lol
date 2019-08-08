@@ -108,7 +108,11 @@
 			autoUpdateInput : false,
 			locale : {
 				cancelLabel : 'Clear'
-			}
+			},
+			datepickerOptions: {
+		         minDate: 0,
+		         maxDate: null
+		     }
 		});
 		$('input[name="startDate"], input[name="endDate"]').on(
 				'apply.daterangepicker',
@@ -136,6 +140,27 @@
 				});
 		/* datepicker enddddddddddddddddddddddddddddddddddddd */
 	});
+	// ---------------- 날짜 막기 -------------------------------------
+	//특정날짜들 배열
+	var disabledDays = ["2019-8-10","2019-8-9"];
+	// 이전 날짜들은 선택막기
+	function noBefore(date){
+	    if (date < new Date())
+	        return [false];
+	    return [true];
+	}
+	 
+	// 특정일 선택막기
+	function disableAllTheseDays(date) {
+	    var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
+	    for (i = 0; i < disabledDays.length; i++) {
+	        if($.inArray(y + '-' +(m+1) + '-' + d,disabledDays) != -1) {
+	            return [false];
+	        }
+	    }
+	    return [true];
+
+	}
 	$(document).ready(function() {
 			$(".confirm").show();
 			$(".confirmEnd").hide();
@@ -158,8 +183,10 @@
 				}
 			});
 		});
-		
-		
+	
+	
+
+
 
 	});
 	

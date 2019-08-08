@@ -2,11 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <style type="text/css">
 #map_canvas {
     width: 500px;
@@ -45,7 +40,7 @@ $(document).ready(function () {
              markerArr[${status.index}] = new google.maps.Marker({
                  position: latlng,
                  map: map, 
-                 /*icon : addresses[x][3],              // 마커 이미지 */
+                 img : "${storemapvo.acc_img}",              // 마커 이미지 
      			title : "${storemapvo.acc_name}",          // 위에서 정의한 "${store.storeName}" 임
  /*     			title : addresses[x][1],          // 위에서 정의한 "${store.storeName}" 임 */
      			zIndex : ${status.index}  // 위에서 정의한 "${storevo.zindex}" 임.  Number() 함수를 꼭 사용해야 함을 잊지 말자.
@@ -75,7 +70,7 @@ $(document).ready(function () {
     	var infowindow = new google.maps.InfoWindow(  
     			{//	content: '안녕하세요~', 
     			 // content: marker.title,	
-    			    content: viewContent(marcker.title, idx), 
+    			    content: viewContent(marcker, idx), 
     			 // size: new google.maps.Size(200,200) 
     			});
     	
@@ -95,7 +90,7 @@ $(document).ready(function () {
     	     			
     			  for(var i=0; i<markerArr.length; i++) { // 생성된 마커의 갯수만큼 반복하여
     				  if(i != (marcker.zIndex) ) {     // 마커에 클릭하여 발생된 풍선창(풍선윈도우) infowindow 를 제외한 나머지 다른 마커에 달린 풍선창(풍선윈도우) infowindow 는
-    					/* infowindowArr[i].close();	    // 닫는다. */	
+    					 infowindowArr[i].close();	    // 닫는다.
     					
     				  }
     				  else if(i == (marcker.zIndex)) {           // 마커에 클릭하여 발생된 풍선창(풍선윈도우) infowindow 는
@@ -108,9 +103,10 @@ $(document).ready(function () {
     	
     }// end of function markerListener(map, marker)-----------
 
-    function viewContent(title, zIndex) {
-    	var html =  "<span style='color:red; font-weight:bold;'>"+title+"</span><br/>"
-    		     +  "<a href='/wetre/reserve.we?acc_idx="+zIndex+"'>상세보기</a>"; 
+    function viewContent(marcker, idx) {
+    	var html =  "<img src='resources/img/hotel_img/"+ marcker.img +"'style='width: 70px; height: 70px;'><br/>"
+    			 + 	"<span style='color:red; font-weight:bold;'>"+marcker.title+"</span><br/>"
+    		     +  "<a href='/wetre/reserve.we?acc_idx="+idx+"'>상세보기</a>"; 
     		         // 매장번호(marker.zIndex)를 넘겨받아 매장지점 상세정보 보여주기와 같은 팝업창 띄우기
     	return html;	
     }
@@ -137,15 +133,9 @@ function goDetail(storeno) {
 }
 
 </script>
-</head>
-
-<body>
 <div id="floating-panel">
 	<input id="address" type="textbox" value="Sydney, NSW">
 	<input id="submit" type="button" value="Geocode">
 </div>
 <div id="map_canvas"></div>
 
-</body>
-
-</html>

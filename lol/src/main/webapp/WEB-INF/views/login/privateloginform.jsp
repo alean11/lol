@@ -9,10 +9,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <link rel="stylesheet" href="<%= ctxPath%>/resources/css/style_privatelogin.css" type="text/css" />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -124,9 +126,72 @@
 					else { %> 
 						 <input type="checkbox" id="saveid" name="saveid" style="vertical-align: text-top;"  /><label for="saveid" style="margin-right: 20px; vertical-align: middle; font-size: 11pt;">아이디저장</label> 
 				 <%	 }  %>
-		 <%	 }  %> 		  
+		 <%	 }  %> 	
+		
+		 	  
+		 <a data-toggle="modal" data-target="#idFind" data-dismiss="modal" >아이디찾기</a> /
+		 <a data-toggle="modal" data-target="#pwdFind" data-dismiss="modal" >비밀번호찾기</a>
+		 
+		 
 		</div>
+		
+		
 		</form>
-	</div>	
+	</div>
+	
+	
+		
 </body>
+
 </html>
+  <div class="modal fade" id="idFind" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close myclose" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">이메일로 인증하기</h4>
+        </div>
+        <div class="modal-body" style="height: 300px; width: 100%;">
+          <div id="idFind">
+          	<div align="left">
+					<iframe style="border: none; width: 100%; height: 280px;" src="<%= request.getContextPath()%>/idFind.we?type=1">
+          			</iframe>
+			</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default myclose" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div class="modal fade" id="pwdFind" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close myclose" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">이메일로 인증하기</h4>
+        </div>
+        <div class="modal-body" style="height: 300px; width: 100%;">
+          <div id="idFind">
+          	<div align="left">
+          			
+					<iframe style="border: none; width: 100%; height: 280px;" src="<%= request.getContextPath()%>/pwdFind.we?type=1">
+          			</iframe>
+          			<input type="text" value="1" />
+			</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default myclose" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>

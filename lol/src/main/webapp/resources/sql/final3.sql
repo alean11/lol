@@ -6,7 +6,34 @@ show user;
 select *
 from acc_tbl join room_tbl 
 on acc_idx = fk_acc_idx
-where acc_idx = 48;
+where acc_idx = 21 ;
+
+select cp_id, acc_name, acc_grade, acc_type, acc_tel1 || acc_tel2 || acc_tel3 as tel, acc_addr1, acc_addr2, acc_img, acc_text
+from acc_tbl;
+update personal_mbr set p_pwd = '9695b88a59a1610320897fa84cb7e144cc51f2984520efb77111d94b402a8382'
+where p_userid = 'admin';
+commit;
+rollback;
+select *
+from personal_mbr
+where p_name = '김명진' and p_hp1 || p_hp2 || p_hp3 = '01077030068';
+select *
+from acc_tbl
+order by acc_name;
+commit;
+update acc_tbl set acc_img =  '정선_메이힐스_리조트_HI508881076.jpg'
+where acc_idx = 58;
+select * 
+from room_tbl;
+
+select *
+from personal_mbr
+where p_name = '김명진' and p_hp1 || p_hp2 || p_hp3 = '01077030068';
+
+select *
+from barmenity;
+where cp_id = 'gunhee4';
+
 
 --------일반회원테이블  : personal_mbr ------------------
 create table personal_mbr
@@ -304,11 +331,23 @@ create table barmenity
 (r_idx number   not null
 ,bm_br_addfee varchar2(6)     DEFAULT 'none'
 ,bm_amenity varchar2(300)   DEFAULT 'none'
-,bm_device varchar2(300)    DEFAULT 'none'
+,bm_device varchar2(300)    DEFAULT 'none'2
 ,constraint FK_barmenity_r_idx foreign key(r_idx) references room_tbl(r_idx)
 );
-
-
+select *
+from cart_tbl
+where p_userid = 'admin'
+order by cartno asc;
+commit;
+select *
+from acc_tbl;
+update cart_tbl set fk_acc_name = '힐튼경주';
+select c.cartno, p_userid, p_name, r_idx, cart_price, cart_cnt, fk_acc_name, fk_rtype_name, full_acc_addr, full_acc_tel, reserver, adultNum, kidsNum, contactinfo, payMethod, requesttxt, to_char(book_start, 'yyyy-mm-dd') as book_start, to_char(book_end, 'yyyy-mm-dd') as book_end, expectedtime, a.acc_grade, a.acc_img
+		from acc_tbl a left join cart_tbl c
+		on a.acc_name = c.fk_acc_name
+		where p_userid = 'admin';
+select c.cartno, p_userid, p_name, r_idx, cart_price, cart_cnt, fk_acc_name, fk_rtype_name, full_acc_addr, full_acc_tel, reserver, adultNum, kidsNum, contactinfo, payMethod, requesttxt, to_char(book_start, 'yyyy-mm-dd') as book_start, to_char(book_end, 'yyyy-mm-dd') as book_end, expectedtime, a.acc_grade, a.acc_img
+		from acc_tbl a left join cart_tbl c
 
 ---------------------------------------------
 -- 추가이미지 테이블 : addtional_img
@@ -1424,8 +1463,8 @@ values(seq_company_mbr.nextval, 'prima', '5830e10608611059ceb92d2ef4d80c790e11a1
 insert into acc_tbl(acc_idx, cp_id, state, acc_name, acc_tel1, acc_tel2, acc_tel3, acc_post1, acc_post2, acc_addr1, acc_addr2, acc_img, acc_text, acc_Rcnt, acc_status, acc_type, acc_grade)
 values(seq_acc_tbl.nextval, 'prima',  1,  '프리마 호텔 서울',  '000',  '0000',  '0000',  '060',  '71', '서울특별시 강남구 도산대로 536', '(청담동, 프리마호텔)', '프리마_호텔_서울HI573104031.jpg',  '호텔설명',  '120', default, '호텔', 3);
 
-
-
+select *
+from acc_tbl;
 
 -------------- >>>>>>>>>>>>>>>>>>>>>>>>>>>>강원<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -1455,7 +1494,7 @@ insert into company_mbr(idx, cp_id, cp_pwd, cp_num1, cp_num2, cp_num3, cp_name, 
 values(seq_company_mbr.nextval, 'mayhills', '5830e10608611059ceb92d2ef4d80c790e11a185c84f6284503de72baad765b5', '000', '00', '00000', '메이힐스', '메이힐스', '1EysnNW20qS2dPy2JpKDIw==', '000', '0000', '0000', default);
 
 insert into acc_tbl(acc_idx, cp_id, state, acc_name, acc_tel1, acc_tel2, acc_tel3, acc_post1, acc_post2, acc_addr1, acc_addr2, acc_img, acc_text, acc_Rcnt, acc_status, acc_type, acc_grade)
-values(seq_acc_tbl.nextval, 'mayhills',  3,  '정선 메이힐스 리조트',  '000',  '0000',  '0000',  '261',  '55', '강원도 정선군 고한읍 물한리길 8', '(고한리, 메이힐리조트)', '정선_메이힐스_리조트_HI563761612.jpg',  '호텔설명',  '250', default, '리조트', 4);
+values(seq_acc_tbl.nextval, 'mayhills',  3,  '정선 메이힐스 리조트',  '000',  '0000',  '0000',  '261',  '55', '강원도 정선군 고한읍 물한리길 8', '(고한리, 메이힐리조트)', '정선_메이힐스_리조트_HI508881076.jpg',  '호텔설명',  '250', default, '리조트', 4);
 
 
 -- 평창 라마다 호텔&스위트

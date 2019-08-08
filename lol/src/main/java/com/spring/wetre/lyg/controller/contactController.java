@@ -35,6 +35,7 @@ public class contactController {
 	@Autowired
 	private InterContactService service;
 
+	
 	// 지도페이지
 	@RequestMapping(value = "/contact.we", method = { RequestMethod.GET })
 	public ModelAndView contact(ModelAndView mv) {

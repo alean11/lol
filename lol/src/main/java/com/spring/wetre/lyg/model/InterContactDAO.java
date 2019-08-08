@@ -27,6 +27,10 @@ public interface InterContactDAO {
 
 	CartVO selectCartOne(HashMap<String, String> para);
 
+	String idFind(HashMap<String, String> map);
+
+	int pwdChange(HashMap<String, String> map);
+
 	
 	
 	
